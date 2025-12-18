@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayoub abdaoui | Telecommunications Student</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #121212;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: url('background.jpg') center/cover no-repeat;
+        }
+
+        .circuit-lines {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                linear-gradient(90deg, #9f78ff 1px, transparent 1px),
+                linear-gradient(0deg, #9f78ff 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .floating-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #9f78ff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #9f78ff;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(159, 120, 255, 0.2);
+            border-bottom: 1px solid rgba(159, 120, 255, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #9f78ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        nav a:hover {
+            background: rgba(159, 120, 255, 0.1);
+            box-shadow: 0 0 10px rgba(159, 120, 255, 0.3);
+        }
+
+        /* Sections */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        section:first-of-type {
+            padding-top: 7rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #9f78ff 0%, #f078ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(159, 120, 255, 0.3);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #9f78ff;
+            border-bottom: 3px solid #f078ff;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+            text-shadow: 0 0 20px rgba(159, 120, 255, 0.5);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #f078ff;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Home Section */
+        #home {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(159, 120, 255, 0.2);
+            border: 1px solid rgba(159, 120, 255, 0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid #9f78ff;
+            box-shadow: 0 0 30px rgba(159, 120, 255, 0.5);
+            background: linear-gradient(135deg, #222, #111);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(from 0deg, transparent, #9f78ff, transparent);
+            animation: rotate 3s linear infinite;
+            z-index: 1;
+        }
+
+        .profile-image img {
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            object-fit: cover;
+            border-radius: 50%;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .profile-placeholder {
+            position: absolute;
+            z-index: 2;
+            background: #222;
+            width: 90%;
+            height: 90%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin: 1.5rem 0;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #9f78ff 0%, #f078ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .tech-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            animation: float-icon 3s ease-in-out infinite;
+        }
+
+        .tech-icon:nth-child(2) { animation-delay: 0.5s; }
+        .tech-icon:nth-child(3) { animation-delay: 1s; }
+        .tech-icon:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(159, 120, 255, 0.2);
+            border: 1px solid rgba(159, 120, 255, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(159, 120, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(159, 120, 255, 0.4);
+            border-color: #9f78ff;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .card-title {
+            flex: 1;
+        }
+
+        .card-date {
+            color: #f078ff;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #b0b0b0;
+        }
+
+        .card li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #9f78ff;
+            font-weight: bold;
+        }
+
+        /* IoT/Robotics Images */
+        .section-image {
+            width: 100%;
+            max-width: 500px;
+            height: 250px;
+            margin: 2rem auto;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #1a1f3a, #2a3f5f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            border: 2px solid #9f78ff;
+            box-shadow: 0 0 30px rgba(159, 120, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(159, 120, 255, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(159, 120, 255, 0.2);
+            border: 1px solid rgba(159, 120, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(159, 120, 255, 0.4);
+        }
+
+        .skill-category h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 0.5rem 0;
+            color: #b0b0b0;
+        }
+
+        /* Certifications */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .cert-item {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(159, 120, 255, 0.2);
+            border-left: 4px solid #9f78ff;
+        }
+
+        .cert-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-item p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .completed {
+            background: rgba(159, 120, 255, 0.2);
+            color: #9f78ff;
+            border: 1px solid #9f78ff;
+        }
+
+        .in-progress {
+            background: rgba(240, 120, 255, 0.2);
+            color: #f078ff;
+            border: 1px solid #f078ff;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(159, 120, 255, 0.2);
+            border: 1px solid rgba(159, 120, 255, 0.3);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(159, 120, 255, 0.4);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item a {
+            color: #9f78ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Activities */
+        .activity-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .activity-item {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(159, 120, 255, 0.2);
+            border: 1px solid rgba(159, 120, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(18, 18, 18, 0.95);
+            color: #9f78ff;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(159, 120, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            section {
+                padding: 4rem 1rem;
+                min-height: auto;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .profile-section {
+                flex-direction: column;
+            }
+
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="circuit-lines"></div>
+        <div class="floating-particles" id="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">🏠 Home</a></li>
+            <li><a href="#education">🎓 Education</a></li>
+            <li><a href="#experience">💼 Experience</a></li>
+            <li><a href="#skills">🧠 Skills</a></li>
+            <li><a href="#certifications">🏆 Certifications</a></li>
+            <li><a href="#activities">🎯 Activities</a></li>
+            <li><a href="#contact">💬 Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home / About Me -->
+    <section id="home">
+        <div class="hero-content">
+            <div class="profile-section">
+                <div class="profile-image">
+                    <div class="profile-placeholder"><img src="photo.png" alt="Ayoub abdaoui" id="profilePhoto">
+</div>
+                </div>
+                <div>
+                    <h1>Ayoub abdaoui</h1>
+                    <p style="font-size: 1.3rem; color: #00d4ff; font-weight: 600;">Telecommunications Engineering Student</p>
+                </div>
+            </div>
+            <p>
+                Hi, I'm <span class="highlight">Ayoub abdaoui </span>, a Telecommunications Engineering student at 
+                <span class="highlight">ISITCOM</span> (Tunisia), currently pursuing my Bachelor's degree in Telecommunications 
+                (expected 2026).
+            </p>
+            <p>
+                I'm passionate about <span class="highlight">cybersecurity, network engineering, IoT solutions, and AI-driven telecom systems</span>. 
+                I enjoy solving real-world technical problems and working on meaningful, innovative projects that improve 
+                communication systems, robotics automation, and network security.
+            </p>
+           
+            <div class="tech-icons">
+                <span class="tech-icon">🤖</span>
+                <span class="tech-icon">📡</span>
+                <span class="tech-icon">🔒</span>
+                <span class="tech-icon">☁️</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+        <h2>🎓 Education</h2>
+        <div class="section-image">🏫</div>
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h3>Bachelor's Degree in Telecommunications</h3>
+                    <p style="color: #b0b0b0; font-size: 1.1rem; margin-top: 0.5rem;">
+                        ISITCOM (Institut Supérieur des Technologies de l'Information et de la Communication)<br>
+                        Hammam Sousse, Tunisia
+                    </p>
+                </div>
+                <div class="card-date">2023 – 2026</div>
+            </div>
+            <p style="margin-top: 1rem;"><strong style="color: #00ff88;">Key Courses:</strong></p>
+            <ul>
+                <li>Wireless Networks & 5G Technologies</li>
+                <li>SOC & Co-Design</li>
+                <li>Network Security & Cryptography</li>
+                <li>Industrial IoT (IIoT) & Smart Systems</li>
+                <li>Optical Communications</li>
+                <li>Digital Communication Systems</li>
+                <li>Robotics & Automation Fundamentals</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+        <h2>💼 Experience</h2>
+        <div class="section-image">📡</div>
+        
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h3>Internship – Tunisie Telecom</h3>
+                    <p style="color: #b0b0b0;">Sousse, Tunisia</p>
+                </div>
+                <div class="card-date">July – August 2024</div>
+            </div>
+            <ul>
+                <li>Configured and monitored telecommunication infrastructures</li>
+                <li>Supported network troubleshooting and maintenance tasks</li>
+                <li>Collaborated with technical teams for system deployment and maintenance</li>
+                <li>Gained practical experience with fiber optics and transmission systems</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h3>Nuit d'info EPI</h3>
+                    <p style="color: #b0b0b0;">Online</p>
+                </div>
+                <div class="card-date">July 2025</div>
+            </div>
+            <p style="color: #b0b0b0; margin-top: 1rem;">
+         Participation à un hackathon international axé sur le développement web, l’intelligence artificielle et la cybersécurité de nuit d'info 2024 | 2025
+
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h3>Cybersecurity Training – GoMyCode</h3>
+                    <p style="color: #b0b0b0;">Tunisia</p>
+                </div>
+                <div class="card-date">August 2024 – Present</div>
+            </div>
+            <p style="color: #b0b0b0; margin-top: 1rem;">
+                Ongoing intensive training program covering network security, ethical hacking, IoT security, and cyber defense fundamentals.
+            </p>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+        <h2>🧠 Skills & Technologies</h2>
+        <div class="section-image">⚙️</div>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>🌐 Networking & Security</h3>
+                <ul>
+                    <li>CCNA Level 1 (Completed)</li>
+                    <li>VLANs, Subnetting, DHCP</li>
+                    <li>Routing Protocols (RIP, OSPF)</li>
+                    <li>TCP/IP Protocol Suite</li>
+                    <li>Network Monitoring (Wireshark)</li>
+                    <li>Cisco Packet Tracer</li>
+                    <li>Vulnerability Detection</li>
+                    <li>IDS/IPS Concepts</li>
+                    <li>Wazuh SIEM Platform</li>
+                </ul>
+            </div>
+
+            <div class="skill-category">
+                <h3>🔒 Cybersecurity</h3>
+                <ul>
+                    <li>Threat Detection & Analysis</li>
+                    <li>Attack Simulation</li>
+                    <li>Incident Response Concepts</li>
+                    <li>Security+ Training</li>
+                    <li>AI-Based Attack Detection</li>
+                    <li>IoT Security Protocols</li>
+                    <li>Vulnerability Assessment</li>
+                </ul>
+            </div>
+
+            <div class="skill-category">
+                <h3>🤖 IoT & Robotics</h3>
+                <ul>
+                    <li>Industrial IoT (IIoT) Systems</li>
+                    <li>Smart Device Integration</li>
+                    <li>Sensor Networks</li>
+                    <li>IoT Communication Protocols</li>
+                    <li>Robotics Fundamentals</li>
+                    <li>Automation Systems</li>
+                    <li>Edge Computing</li>
+                    <li>Smart City Technologies</li>
+                </ul>
+            </div>
+
+            <div class="skill-category">
+                <h3>💻 Programming & Tools</h3>
+                <ul>
+                    <li>Python (Network Automation)</li>
+                    <li>Cisco Packet Tracer</li>
+                    <li>Wireshark</li>
+                    <li>Git / GitHub</li>
+                    <li>VirtualBox (Virtualization)</li>
+                    <li>AI/ML Fundamentals</li>
+                    <li>Developement Mobile/web</li>
+                    <li>Linux Systems</li>
+                </ul>
+            </div>
+
+            <div class="skill-category">
+                <h3>🤝 Soft Skills</h3>
+                <ul>
+                    <li>Teamwork & Collaboration</li>
+                    <li>Problem Solving</li>
+                    <li>Critical Thinking</li>
+                    <li>Adaptability</li>
+                    <li>Continuous Learning</li>
+                    <li>Communication</li>
+                    <li>Analytical Thinking</li>
+                    <li>Project Management</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 3rem;">
+            <h3>🌍 Languages</h3>
+            <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1rem;">
+                <div>
+                    <strong>Arabic:</strong> <span style="color: #00ff88;">Native</span>
+                </div>
+                <div>
+                    <strong>French:</strong> <span style="color: #00ff88;">Fluent</span>
+                </div>
+                <div>
+                    <strong>English:</strong> <span style="color: #00ff88;">Fluent</span>
+                </div>
+                <div>
+                    <strong> German :</strong> <span style="color: #00ff88;">Beginner (B1)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications">
+        <h2>🏆 Certifications</h2>
+        <div class="section-image">📜</div>
+        <div class="cert-grid">
+            <div class="cert-item">
+                <h3>Oracle Certified Foundations Associate (AI Foundations) </h3>
+                <p>Oracle University</p>
+                <span class="status-badge completed">✓ Completed</span>
+            </div>
+
+            <div class="cert-item">
+                <h3>python-essentials-2</h3>
+                <p>Cisco Academy</p>
+                <span class="status-badge in-progress">✓ Completed</span>
+            </div>
+
+            <div class="cert-item">
+                <h3>Java-essentials-2/h3>
+                <p>Cisco Academy</p>
+                <span class="status-badge in-progress">✓ Completed</span>
+            </div>
+
+            <div class="cert-item">
+                <h3>Html,Css-essentials-2/h3>
+                <p>Cisco Academy</p>
+                <span class="status-badge in-progress">✓ Completed</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Extra-Curricular Activities -->
+   
